@@ -1,0 +1,50 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Commercial license available
+# © Concepts 1996–2026 Miroslav Šotek. All rights reserved.
+# © Code 2020–2026 Miroslav Šotek. All rights reserved.
+# ORCID: 0009-0009-3560-0851
+# Contact: www.anulum.li | protoscience@anulum.li
+# SPIKE-QUALITY-GATE — repository identity and validation foundation
+
+site_name: Spike Quality Gate
+site_description: Architecture and repository foundation for source-bound event-data quality evaluation
+strict: true
+site_dir: .tool-cache/site
+exclude_docs: |
+  /internal/
+theme:
+  name: material
+  logo: assets/anulum_logo.png
+  favicon: assets/anulum_logo.png
+hooks:
+  - tools/documentation_hooks.py
+nav:
+  - Overview: index.md
+  - Architecture: ARCHITECTURE.md
+  - Validation tooling: validation-tooling.md
+  - Data and authority boundaries: THREAT_MODEL.md
+  - Repository boundary: adr/0001-repository-boundary.md
+  - Contribution and support:
+      - Contributing: CONTRIBUTING.md
+      - Contributor conduct: CODE_OF_CONDUCT.md
+      - Governance: GOVERNANCE.md
+      - Contributors: CONTRIBUTORS.md
+      - Support: SUPPORT.md
+      - Reporting a concern: SECURITY.md
+      - Validation scope: VALIDATION.md
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [tools]
+          options:
+            allow_inspection: false
+            docstring_style: numpy
+            show_source: false
+            show_signature_annotations: true
+validation:
+  links:
+    not_found: warn
+    anchors: warn
+    unrecognized_links: warn

@@ -1,0 +1,115 @@
+{
+  "repository_name": "SPIKE-QUALITY-GATE",
+  "lifecycle": "local_scaffold",
+  "scope": "workflow-source-selection",
+  "source_actions": [
+    {
+      "repo": "actions/checkout",
+      "selected_tag": "v7.0.1",
+      "commit": "3d3c42e5aac5ba805825da76410c181273ba90b1",
+      "action_path": "action.yml",
+      "action_sha256": "d59219cb79590abdb877deaa14e3b65a00c05318bf5a6f3b989b9162b5d08c35",
+      "licence": {
+        "path": "LICENSE",
+        "spdx_id": "MIT",
+        "sha256": "3e855ffa704114a51628ef8f0bf3aeb41728adf9d9070e263bf58aa5640b0eb5",
+        "bytes": 1097
+      },
+      "source_url": "https://github.com/actions/checkout/tree/3d3c42e5aac5ba805825da76410c181273ba90b1",
+      "action_bytes": 5144
+    },
+    {
+      "repo": "astral-sh/setup-uv",
+      "selected_tag": "v10.3.0",
+      "commit": "1c37ad07a6a961277cf70c0d37d6f313000f5884",
+      "action_path": "action.yml",
+      "action_sha256": "d673bd5ea2cdb9af0c2c2e0d392afe966637bd49e4397313b9086ae582548b37",
+      "licence": {
+        "path": "LICENSE",
+        "spdx_id": "MIT",
+        "sha256": "933c6b13611b145de8fc8016281b2733e4a38c66f431de5bf48ed89b42af164b",
+        "bytes": 1083
+      },
+      "source_url": "https://github.com/astral-sh/setup-uv/tree/1c37ad07a6a961277cf70c0d37d6f313000f5884",
+      "action_bytes": 4942
+    },
+    {
+      "repo": "github/codeql-action",
+      "selected_tag": "v4",
+      "commit": "6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee",
+      "action_path": "init/action.yml",
+      "action_sha256": "93bb5117fc0c22922e865515a8a863aa2182cf872b124735904d4051afb83854",
+      "licence": {
+        "path": "LICENSE",
+        "spdx_id": "MIT",
+        "sha256": "3243761cbac07e6d169a5a2f4e7c25cc544da85248e735df74c3672e055cc87b",
+        "bytes": 1063
+      },
+      "source_url": "https://github.com/github/codeql-action/tree/6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee",
+      "action_bytes": 8704
+    },
+    {
+      "repo": "ossf/scorecard-action",
+      "selected_tag": "v2.5.0",
+      "annotated_tag": "46dc3187a971a9febf3aeb7f94ccde489f7bb46a",
+      "commit": "fa7117db83c52d787ae5a89f350999701505d78e",
+      "action_path": "action.yaml",
+      "action_bytes": 1942,
+      "action_sha256": "e29ff3df3b1bec5781637ccdf0daa71f69e32b8162572fd79ec896f733786437",
+      "licence": {
+        "path": "LICENSE",
+        "spdx_id": "Apache-2.0",
+        "bytes": 11356,
+        "sha256": "146e65261c0431842c628d0274edaf3055cafc8d9b10d68250636f213ad4a171"
+      },
+      "source_url": "https://github.com/ossf/scorecard-action/tree/fa7117db83c52d787ae5a89f350999701505d78e",
+      "transitive_image_tag": "ghcr.io/ossf/scorecard-action:v2.5.0",
+      "transitive_image_digest_qualified": false
+    }
+  ],
+  "codeql_bundle": {
+    "version": "2.27.2",
+    "archive": "codeql-bundle-linux64.tar.gz",
+    "bytes": 692996129,
+    "github_release_digest": "sha256:f002864be6dd8d5d7bdb123aaf7291ec8e291012bd9f70b6d2362f730db52aeb",
+    "archive_downloaded_or_executed": false
+  },
+  "uv_archive": {
+    "version": "0.13.4",
+    "bytes": 16653835,
+    "github_release_digest": "sha256:2b428396f12572d4429cf210ca234dd599a33b3af0958a4d5ed569d63e3f344f"
+  },
+  "scorecard_image": {
+    "source_commit": "fa7117db83c52d787ae5a89f350999701505d78e",
+    "registry": "ghcr.io/ossf/scorecard-action",
+    "tag": "v2.5.0",
+    "linux_amd64_digest": "sha256:1e1481c65fc2407d3fd6ab18a23c741eb4d1c0d9359ebafc4b3ab13aa61d8627",
+    "config_digest": "sha256:f1089e60d1f2cb85fe00314a227ef70df780c8b148e54d4a3b782098d4187a90",
+    "source_revision_label_matches": true,
+    "layers_downloaded": false,
+    "image_executed": false
+  },
+  "python_manifest": {
+    "source": "https://github.com/astral-sh/uv/blob/7456b60bc6bc348e13e06e3691bf08e78d3aef54/crates/uv-python-managed/download-metadata.json",
+    "bytes": 3476560,
+    "sha256": "8944c7c672f6b2cab3d03305a06daec71babe491cd77ec4c0bbf4a0f6d286c18",
+    "selected_python": "3.13.16",
+    "selected_linux_x86_64_sha256": "d0080766b6b74aeb81e1949ef0d9a20e6c17f7b160fb295a69b936ccb17660be"
+  },
+  "residuals": [
+    "Hosted ubuntu-24.04 image and runner service are maintained externally; no hosted run is qualified.",
+    "Official setup-uv action uses service/cache resolution; exact release checksum and package locks remain mandatory.",
+    "CodeQL and Scorecard service settings and real hosted executions remain unqualified.",
+    "Local CPython 3.13.16 uses the separately recorded original source observation. Updated uv selects a newer standalone build of that same version for a fresh bootstrap; neither runtime byte equivalence nor hosted execution is qualified."
+  ],
+  "workflow_definitions_prepared": true,
+  "complete_pipeline_wiring_qualified": false,
+  "hosted_run_qualified": false,
+  "local_python_source_observation": {
+    "source": "https://github.com/astral-sh/uv/blob/0.12.22/crates/uv-python/download-metadata.json",
+    "bytes": 3333232,
+    "sha256": "264e857a56e5f057f313c5ca49714706ab06142941ffd90cca1062c678d3288a",
+    "selected_python": "3.13.16",
+    "selected_linux_x86_64_sha256": "ffcb50e716789d1a6e1db5e745d4d194ac8ed9b015ccf5eabcaccb179a25e4a8"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "capabilities": [],
+  "claims": [],
+  "domain_runtime_dependencies": [],
+  "evidence_maturity": "architecture_only",
+  "lifecycle": "local_scaffold",
+  "owner_group": "SC-NEUROMORPHIC-COMPUTING-SYSTEMS",
+  "planned_owned_schema_ids": [
+    "event_data_quality.report.v1"
+  ],
+  "qualified_owned_schema_ids": [],
+  "repository_name": "SPIKE-QUALITY-GATE",
+  "tooling_python": {
+    "actual_version": "3.13.16",
+    "design_baseline": "3.13",
+    "development_lock_sha256": "e47964f89ac2f0b6200658166fc8c17bbe9772ec55b6f1cc95e3950e2ac72f0f",
+    "supported_range": ">=3.13.16,<3.14"
+  },
+  "validation_profile": {
+    "id": "gotm.enterprise-repository-tier0.local-scaffold",
+    "profile_sha256": "f453a70eae008c41f8d26a1f495ec3636f64739bcedb9caac0bdf8774300905c",
+    "revision": "2026-10-04",
+    "standard_sha256": "8421674a61444474447fad2f4d2bfc54dc5a1ea12ae988785e57dbcab385938c"
+  }
+}

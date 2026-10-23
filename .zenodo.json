@@ -1,0 +1,19 @@
+{
+  "creators": [
+    {
+      "affiliation": "ANULUM",
+      "name": "Šotek, Miroslav",
+      "orcid": "0009-0009-3560-0851"
+    }
+  ],
+  "description": "Architecture-only repository validation tooling and design for source-bound event-data quality evaluation. No admitted check battery, policy engine, dataset report, live capture or physical health result is released.",
+  "keywords": [
+    "event-data quality",
+    "neuromorphic computing",
+    "versioned quality policies",
+    "reproducibility"
+  ],
+  "license": "AGPL-3.0-or-later",
+  "title": "Spike Quality Gate",
+  "upload_type": "software"
+}

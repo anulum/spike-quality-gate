@@ -1,0 +1,32 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Commercial license available
+# © Concepts 1996–2026 Miroslav Šotek. All rights reserved.
+# © Code 2020–2026 Miroslav Šotek. All rights reserved.
+# ORCID: 0009-0009-3560-0851
+# Contact: www.anulum.li | protoscience@anulum.li
+# SPIKE-QUALITY-GATE — repository foundation
+name: Bug report
+description: Report reproducible behaviour in an implemented surface.
+title: ""
+body:
+  - type: textarea
+    id: behaviour
+    attributes:
+      label: Expected and observed behaviour
+      description: Identify the actual implemented surface; preserve failed or incomplete outcomes.
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Source and environment
+      description: Include the exact source revision, interpreter, framework and backend versions.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction and references
+      description: Supply bounded legally shareable inputs and commands; exclude private data and credentials.
+    validations:
+      required: true

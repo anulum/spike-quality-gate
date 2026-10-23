@@ -1,0 +1,32 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Commercial license available
+# © Concepts 1996–2026 Miroslav Šotek. All rights reserved.
+# © Code 2020–2026 Miroslav Šotek. All rights reserved.
+# ORCID: 0009-0009-3560-0851
+# Contact: www.anulum.li | protoscience@anulum.li
+# SPIKE-QUALITY-GATE — repository foundation
+name: Feature request
+description: Propose a complete user workflow and measurable acceptance.
+title: ""
+body:
+  - type: textarea
+    id: workflow
+    attributes:
+      label: User workflow
+      description: Explain inputs, outputs and the concrete comparison or diagnostic need.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Sources and acceptance
+      description: Identify independent references, framework requirements, limits and expected observable outcomes.
+    validations:
+      required: true
+  - type: textarea
+    id: integration
+    attributes:
+      label: Integration and compatibility
+      description: Describe existing producers, consumers and affected counterparts.
+    validations:
+      required: true

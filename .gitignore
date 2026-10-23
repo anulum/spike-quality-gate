@@ -1,0 +1,34 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Commercial license available
+# © Concepts 1996–2026 Miroslav Šotek. All rights reserved.
+# © Code 2020–2026 Miroslav Šotek. All rights reserved.
+# ORCID: 0009-0009-3560-0851
+# Contact: www.anulum.li | protoscience@anulum.li
+# SPIKE-QUALITY-GATE — repository foundation
+/.venv/
+/.tool-cache/
+/.pytest_cache/
+/.mypy_cache/
+/.ruff_cache/
+**/__pycache__/
+*.py[cod]
+/.coverage*
+/site/
+/dist/
+/build/
+/node_modules/
+/target/
+/.env
+/.env.*
+/docs/internal/
+/docs/internal/**
+/BACKUP/
+/ARCHIVE/
+/.coordination/
+/04_ARCANE_SAPIENCE/
+AGENTS.md
+CLAUDE.md
+CODEX.md
+GEMINI.md
+GROK.md
+KIMI.md

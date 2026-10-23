@@ -1,0 +1,91 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Commercial license available
+# © Concepts 1996–2026 Miroslav Šotek. All rights reserved.
+# © Code 2020–2026 Miroslav Šotek. All rights reserved.
+# ORCID: 0009-0009-3560-0851
+# Contact: www.anulum.li | protoscience@anulum.li
+# SPIKE-QUALITY-GATE — bounded repository workflows
+
+name: Python source analysis
+'on':
+  push: {}
+  pull_request: {}
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+defaults:
+  run:
+    shell: bash
+env:
+  UV_LINK_MODE: hardlink
+  UV_CACHE_DIR: ${{ github.workspace }}/.tool-cache/uv-cache
+  TMPDIR: ${{ github.workspace }}/.tool-cache/tmp
+  PRE_COMMIT_HOME: ${{ github.workspace }}/.tool-cache/pre-commit
+  PYTHONDONTWRITEBYTECODE: '1'
+jobs:
+  validation:
+    name: Python source analysis
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      CI_JOB_CLASS: analysis
+      CI_SOURCE_SCOPE: maintained-python-and-repository
+    steps:
+    - name: Read the exact source
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      with:
+        persist-credentials: false
+        fetch-depth: 0
+    - name: Prepare local cache directories
+      run: mkdir -p .tool-cache/tmp .tool-cache/uv-cache .tool-cache/pre-commit .tool-cache/reports
+    - name: Select the verified uv release
+      uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884
+      with:
+        version: 0.13.4
+        checksum: 2b428396f12572d4429cf210ca234dd599a33b3af0958a4d5ed569d63e3f344f
+        python-version: 3.13.16
+        python-arch: x86_64
+        enable-cache: true
+        save-cache: false
+        cache-local-path: .tool-cache/uv-cache
+        cache-dependency-glob: |-
+          requirements-dev.txt
+          requirements-rejection.txt
+          pyproject.toml
+        download-from-astral-mirror: false
+    - name: Create the actual tooling environment
+      run: |-
+        uv venv --python 3.13.16 .venv
+        uv pip sync --require-hashes --build-constraints requirements-dev.txt --python .venv/bin/python requirements-dev.txt
+    - name: Verify the original CodeQL bundle
+      run: |-
+        mkdir -p .tool-cache/codeql
+        curl --fail --location --proto '=https' --tlsv1.2 --max-time 300 --output .tool-cache/codeql/bundle.tar.gz https://github.com/github/codeql-action/releases/download/codeql-bundle-v2.27.2/codeql-bundle-linux64.tar.gz
+        sha256sum --check --strict <<'CHECKSUM'
+        f002864be6dd8d5d7bdb123aaf7291ec8e291012bd9f70b6d2362f730db52aeb  .tool-cache/codeql/bundle.tar.gz
+        CHECKSUM
+        test "$(wc -c < .tool-cache/codeql/bundle.tar.gz)" -eq 692996129
+    - name: Initialise the actual Python analysis
+      uses: github/codeql-action/init@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee
+      with:
+        languages: python
+        build-mode: none
+        tools: .tool-cache/codeql/bundle.tar.gz
+        config: |-
+          paths:
+            - tools
+            - tests
+        ram: 4096
+        threads: 2
+    - name: Analyse without publishing results
+      uses: github/codeql-action/analyze@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee
+      with:
+        upload: never
+        upload-database: false
+        output: .tool-cache/reports/codeql
+        skip-queries: false
+        ram: 4096
+        threads: 2

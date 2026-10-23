@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Commercial license available
+# © Concepts 1996–2026 Miroslav Šotek. All rights reserved.
+# © Code 2020–2026 Miroslav Šotek. All rights reserved.
+# ORCID: 0009-0009-3560-0851
+# Contact: www.anulum.li | protoscience@anulum.li
+# SPIKE-QUALITY-GATE — repository foundation
+blank_issues_enabled: false
+contact_links:
+  - name: Private support and licensing
+    url: https://anulum.li/contact.html
+    about: Contact the maintainer without disclosing private model data or credentials.

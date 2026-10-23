@@ -1,0 +1,89 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Commercial license available
+# © Concepts 1996–2026 Miroslav Šotek. All rights reserved.
+# © Code 2020–2026 Miroslav Šotek. All rights reserved.
+# ORCID: 0009-0009-3560-0851
+# Contact: www.anulum.li | protoscience@anulum.li
+# SPIKE-QUALITY-GATE — local repository metadata validation
+
+minimum_pre_commit_version: "4.6.2"
+fail_fast: false
+repos:
+  - repo: local
+    hooks:
+      - id: ruff
+        name: Python lint and native docstrings
+        entry: .venv/bin/ruff check
+        language: system
+        types: [python]
+      - id: ruff-format
+        name: Python formatting
+        entry: .venv/bin/ruff format --check
+        language: system
+        types: [python]
+      - id: mypy
+        name: Strict types for maintained tooling and tests
+        entry: .venv/bin/mypy --strict tools tests
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: repository-metadata
+        name: Source-selected repository metadata
+        entry: .venv/bin/python tools/check_repository_metadata.py --root . --json
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: source-provenance
+        name: Native source headers and exact JSON attribution
+        entry: .venv/bin/python tools/check_source_provenance.py --root . --json
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: workflow-policy
+        name: Source-selected workflow policy
+        entry: .venv/bin/python tools/check_workflow_policy.py --root . --json
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: repository-inventory
+        name: Actual initial repository tree and index
+        entry: .venv/bin/python tools/check_repository_inventory.py --root . --mode verify --json
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: dependency-alignment
+        name: Selected tooling inputs and actual installed metadata
+        entry: .venv/bin/python tools/check_dependency_alignment.py --root . --json
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: native-tools
+        name: Selected native file identity
+        entry: .venv/bin/python tools/bootstrap_native_tools.py --root . --json
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: reuse
+        name: Native source licence and attribution
+        entry: .venv/bin/reuse --no-multiprocessing lint
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: docs
+        name: Strict documentation and native API rendering
+        entry: make docs
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: bandit
+        name: Native maintained-tool source inspection
+        entry: .venv/bin/bandit -r tools -q
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: gitleaks
+        name: Native staged-source secret inspection
+        entry: .tool-cache/native/bin/gitleaks git --pre-commit --staged --no-banner --redact --ignore-gitleaks-allow --gitleaks-ignore-path /dev/null --timeout 30
+        language: system
+        pass_filenames: false
+        always_run: true

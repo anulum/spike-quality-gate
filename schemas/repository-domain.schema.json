@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "capabilities": {
+      "maxItems": 0,
+      "type": "array"
+    },
+    "claims": {
+      "maxItems": 0,
+      "type": "array"
+    },
+    "domain_runtime_dependencies": {
+      "maxItems": 0,
+      "type": "array"
+    },
+    "evidence_maturity": {
+      "const": "architecture_only"
+    },
+    "lifecycle": {
+      "const": "local_scaffold"
+    },
+    "owner_group": {
+      "const": "SC-NEUROMORPHIC-COMPUTING-SYSTEMS"
+    },
+    "planned_owned_schema_ids": {
+      "const": [
+        "event_data_quality.report.v1"
+      ]
+    },
+    "qualified_owned_schema_ids": {
+      "maxItems": 0,
+      "type": "array"
+    },
+    "repository_name": {
+      "const": "SPIKE-QUALITY-GATE"
+    },
+    "tooling_python": {
+      "additionalProperties": false,
+      "properties": {
+        "actual_version": {
+          "const": "3.13.16"
+        },
+        "design_baseline": {
+          "const": "3.13"
+        },
+        "development_lock_sha256": {
+          "const": "e47964f89ac2f0b6200658166fc8c17bbe9772ec55b6f1cc95e3950e2ac72f0f"
+        },
+        "supported_range": {
+          "const": ">=3.13.16,<3.14"
+        }
+      },
+      "required": [
+        "actual_version",
+        "design_baseline",
+        "development_lock_sha256",
+        "supported_range"
+      ],
+      "type": "object"
+    },
+    "validation_profile": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "const": "gotm.enterprise-repository-tier0.local-scaffold"
+        },
+        "profile_sha256": {
+          "const": "f453a70eae008c41f8d26a1f495ec3636f64739bcedb9caac0bdf8774300905c"
+        },
+        "revision": {
+          "const": "2026-10-04"
+        },
+        "standard_sha256": {
+          "const": "8421674a61444474447fad2f4d2bfc54dc5a1ea12ae988785e57dbcab385938c"
+        }
+      },
+      "required": [
+        "id",
+        "profile_sha256",
+        "revision",
+        "standard_sha256"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "capabilities",
+    "claims",
+    "domain_runtime_dependencies",
+    "evidence_maturity",
+    "lifecycle",
+    "owner_group",
+    "planned_owned_schema_ids",
+    "qualified_owned_schema_ids",
+    "repository_name",
+    "tooling_python",
+    "validation_profile"
+  ],
+  "title": "Spike Quality Gate local repository metadata",
+  "type": "object"
+}
