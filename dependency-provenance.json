@@ -3749,7 +3749,7 @@
       "requirements-dev.txt": "a4d78e0883168db6e4dbfe868e1b407da23f824ffa3c79add8910ff4396ae306",
       "requirements-rejection.in": "a1f79c3ddddbc52b5c42771afd876a2282ba49d84db897a58e1f9b667ab58f4e",
       "requirements-rejection.txt": "c04b14967150705b5ac82a6b0b567a8ac6c1e29153664289ea30b2a50bed1f04",
-      "workflow-provenance.json": "2d02376b5e194d3f2b917d3bbb561f5eb37f3166d0352c2b90880f08e63c8352"
+      "workflow-provenance.json": "d1c35ce4c0a19d47703b31475f021d9d9054a1a5c273b8c58a9a0d667df6070b"
     },
     "installed_metadata_sha256": {
       "mkdocs-1.6.1.dist-info/METADATA": "fc27725a75617c8fa3a63108f1086ec2149071d6f8edf790a30b586f7700b34e",

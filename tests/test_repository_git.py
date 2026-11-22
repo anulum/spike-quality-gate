@@ -5,7 +5,7 @@
 # ORCID: 0009-0009-3560-0851
 # Contact: www.anulum.li | protoscience@anulum.li
 # SPIKE-QUALITY-GATE — real inventory behaviour
-"""Exercise actual native Git root, branch, index and ignore behaviour."""
+"""Exercise actual native Git root, branch, remote, index and ignore behaviour."""
 
 from __future__ import annotations
 
@@ -14,6 +14,7 @@ from pathlib import Path
 
 import pytest
 
+from check_repository_metadata import PUBLIC_REMOTE
 from repository_git import inspect_repository_git
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -60,12 +61,56 @@ def test_actual_branch_remote_index_and_ignore_failures_are_retained(candidate: 
     )
     reasons = inspect_repository_git(candidate)
     assert {x.code for x in reasons} == {
-        "initial_branch_not_main",
-        "initial_remote_present",
+        "branch_not_main",
+        "remote_not_canonical",
         "unapproved_tracked_path",
         "private_paths_not_ignored",
     }
     assert all("fixture" not in x.path for x in reasons)
+
+
+def test_published_checkout_accepts_only_the_canonical_origin(candidate: Path) -> None:
+    """Accept the canonical origin, with or without .git; refuse any other fetch or push URL."""
+    _git(candidate, "remote", "add", "origin", PUBLIC_REMOTE)
+    assert inspect_repository_git(candidate) == ()
+    _git(candidate, "remote", "set-url", "origin", PUBLIC_REMOTE + ".git")
+    assert inspect_repository_git(candidate) == ()
+    _git(candidate, "remote", "set-url", "--push", "origin", PUBLIC_REMOTE + "-fork")
+    assert {x.code for x in inspect_repository_git(candidate)} == {"remote_not_canonical"}
+    _git(candidate, "remote", "set-url", "--push", "origin", PUBLIC_REMOTE)
+    assert inspect_repository_git(candidate) == ()
+    _git(candidate, "remote", "set-url", "origin", PUBLIC_REMOTE + "-fork")
+    assert {x.code for x in inspect_repository_git(candidate)} == {"remote_not_canonical"}
+    _git(candidate, "remote", "set-url", "origin", PUBLIC_REMOTE)
+    _git(candidate, "remote", "add", "mirror", PUBLIC_REMOTE)
+    assert {x.code for x in inspect_repository_git(candidate)} == {"remote_not_canonical"}
+    _git(candidate, "remote", "remove", "origin")
+    assert {x.code for x in inspect_repository_git(candidate)} == {"remote_not_canonical"}
+
+
+def test_detached_hosted_checkout_is_accepted_and_other_branches_refused(candidate: Path) -> None:
+    """Accept a detached HEAD, as in a hosted pull-request checkout; refuse a named branch."""
+    (candidate / "README.md").write_bytes((ROOT / "README.md").read_bytes())
+    _git(candidate, "add", "--", "README.md")
+    _git(
+        candidate,
+        "-c",
+        "user.name=fixture",
+        "-c",
+        "user.email=fixture@example.invalid",
+        "-c",
+        "commit.gpgsign=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "commit",
+        "-q",
+        "-m",
+        "fixture",
+    )
+    _git(candidate, "checkout", "-q", "--detach")
+    assert inspect_repository_git(candidate) == ()
+    _git(candidate, "checkout", "-q", "-b", "feature")
+    assert {x.code for x in inspect_repository_git(candidate)} == {"branch_not_main"}
 
 
 def test_parent_repository_is_not_the_selected_checkout(candidate: Path) -> None:

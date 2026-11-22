@@ -12,6 +12,8 @@ SPIKE-QUALITY-GATE — repository foundation
 
 Spike Quality Gate is being built to evaluate event datasets and closed capture windows against immutable, versioned quality policies. It will retain timestamp, population, exposure, polarity, rate and capture-coverage checks with complete located evidence and explicit unknowns. This checkout contains repository validation tooling and documentation. Full foundation qualification is in progress. There is no installed event-quality package, quality-check runner, public quality command or qualified quality report.
 
+Spike Quality Gate is part of the **SC Neuromorphic Computing Systems** group (SC-NEUROMORPHIC-COMPUTING-SYSTEMS). The [group and project map](https://github.com/anulum/sc-neurocore/blob/main/docs/ecosystem.md) shows the whole programme and where this repository sits in it.
+
 ## Boundary
 
 This project owns measurements, typed quality policy, scoped reports and independent replay of its semantics. Spike Log owns container decoding and capture closure; Spike Format Bridge owns conversion and loss ancestry. Evidence Manifest Toolkit owns shared evidence operations. Studio renders existing findings; dataset generators, benchmarks and the experiment ledger consume exact reports.

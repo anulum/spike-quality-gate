@@ -12,6 +12,8 @@ SPIKE-QUALITY-GATE — repository foundation
 
 This repository is preparing source-bound event-data quality evaluation. Its current executable surface is repository validation tooling. It has no installed event-quality package, public quality-check runner or qualified quality report.
 
+Spike Quality Gate is part of the **SC Neuromorphic Computing Systems** group (SC-NEUROMORPHIC-COMPUTING-SYSTEMS). The [group and project map](https://github.com/anulum/sc-neurocore/blob/main/docs/ecosystem.md) shows the whole programme and where this repository sits in it.
+
 The intended workflow retains the complete earlier policy-selected population, all located measurements and missing facts. Capture coverage differs from event presence. Policy, source and uncertainty remain visible beside a report's observed verdict.
 
 Read [Architecture](ARCHITECTURE.md), [validation tooling](validation-tooling.md), [data boundaries](THREAT_MODEL.md) and the [repository boundary decision](adr/0001-repository-boundary.md).

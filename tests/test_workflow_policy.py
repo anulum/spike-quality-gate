@@ -21,6 +21,7 @@ from pathlib import Path
 import pytest
 import yaml
 
+from check_repository_metadata import LIFECYCLE, REPOSITORY_NAME
 from check_workflow_policy import main, validate_workflow_policy
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -264,3 +265,10 @@ def test_invalid_root_name_is_reported_by_api_and_cli(value: str) -> None:
     output = io.StringIO()
     assert main(["--root", value, "--json"], output=output) == 4
     assert json.loads(output.getvalue())["status"] == "invalid"
+
+
+def test_selected_workflow_receipt_states_the_repository_lifecycle() -> None:
+    """Bind the selected workflow receipt to the descriptor's repository and lifecycle."""
+    receipt = json.loads((ROOT / "workflow-provenance.json").read_text(encoding="utf-8"))
+    assert receipt["repository_name"] == REPOSITORY_NAME
+    assert receipt["lifecycle"] == LIFECYCLE

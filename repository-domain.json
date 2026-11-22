@@ -3,11 +3,12 @@
   "claims": [],
   "domain_runtime_dependencies": [],
   "evidence_maturity": "architecture_only",
-  "lifecycle": "local_scaffold",
+  "lifecycle": "public_repository",
   "owner_group": "SC-NEUROMORPHIC-COMPUTING-SYSTEMS",
   "planned_owned_schema_ids": [
     "event_data_quality.report.v1"
   ],
+  "public_remote": "https://github.com/anulum/spike-quality-gate",
   "qualified_owned_schema_ids": [],
   "repository_name": "SPIKE-QUALITY-GATE",
   "tooling_python": {

@@ -1,6 +1,6 @@
 {
   "repository_name": "SPIKE-QUALITY-GATE",
-  "lifecycle": "local_scaffold",
+  "lifecycle": "public_repository",
   "scope": "workflow-source-selection",
   "source_actions": [
     {

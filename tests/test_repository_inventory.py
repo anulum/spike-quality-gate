@@ -76,7 +76,7 @@ def test_generation_is_acyclic_deterministic_and_independently_bound(candidate: 
     value = json.loads(first.read_bytes())
     assert value == {
         "repository_name": "SPIKE-QUALITY-GATE",
-        "lifecycle": "local_scaffold",
+        "lifecycle": "public_repository",
         "evidence_maturity": "architecture_only",
         "capabilities": [],
         "claims": [],

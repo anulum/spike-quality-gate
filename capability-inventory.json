@@ -2,11 +2,11 @@
   "capabilities": [],
   "claims": [],
   "evidence_maturity": "architecture_only",
-  "lifecycle": "local_scaffold",
+  "lifecycle": "public_repository",
   "qualified_owned_schema_ids": [],
   "repository_name": "SPIKE-QUALITY-GATE",
   "source_metadata": {
     "path": "repository-domain.json",
-    "sha256": "4dd39139b3af84b2319511bcb50fa9bfec33c5acd6171431055790a3c994df96"
+    "sha256": "60c87a3ff70b4107b2f7a9473828a7caa24ef45f29429a8c6da0fca8e2d18e56"
   }
 }

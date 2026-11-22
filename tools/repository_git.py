@@ -5,17 +5,20 @@
 # ORCID: 0009-0009-3560-0851
 # Contact: www.anulum.li | protoscience@anulum.li
 # SPIKE-QUALITY-GATE — repository inventory
-"""Inspect the actual local Git root, branch, index and private-path ignores."""
+"""Inspect the actual Git root, branch, remote, index and private-path ignores."""
 
 from __future__ import annotations
 
 import subprocess  # nosec B404  # Required bounded native tool execution.
 from pathlib import Path
 
+from check_repository_metadata import PUBLIC_REMOTE
 from repository_policy import EXCLUDED, PUBLIC_PATHS, InventoryIssue, admit_root
 
 PRIVATE_PROBES = ("docs/internal/probe.md", "docs/internal/nested/probe.json")
 MAX_GIT_BYTES = 1_048_576
+#: The only remote URLs accepted: the canonical public remote, with or without the ".git" suffix.
+ACCEPTED_REMOTE_URLS = frozenset({PUBLIC_REMOTE, PUBLIC_REMOTE + ".git"})
 
 
 def inspect_repository_git(root: Path) -> tuple[InventoryIssue, ...]:
@@ -24,7 +27,9 @@ def inspect_repository_git(root: Path) -> tuple[InventoryIssue, ...]:
     Parameters
     ----------
     root : pathlib.Path
-        Caller-selected initial scaffold, requiring actual local main and no remotes.
+        Caller-selected checkout. Its branch is main, or HEAD is detached as in a
+        hosted pull-request checkout; any other named branch is refused. It has no
+        remote, or exactly one remote named origin at the canonical public remote.
 
     Returns
     -------
@@ -35,7 +40,8 @@ def inspect_repository_git(root: Path) -> tuple[InventoryIssue, ...]:
     Notes
     -----
     Git is a required host executable. This does not qualify its binary build,
-    repository history, hooks, remote transport or hosted settings.
+    repository history, hooks, remote transport or hosted settings, and it
+    reads the configured remote URL without contacting the remote.
     """
     admitted = admit_root(root)
     if isinstance(admitted, InventoryIssue):
@@ -44,8 +50,8 @@ def inspect_repository_git(root: Path) -> tuple[InventoryIssue, ...]:
     reasons: list[InventoryIssue] = []
     commands: tuple[tuple[str, ...], ...] = (
         ("rev-parse", "--show-toplevel"),
-        ("symbolic-ref", "--short", "HEAD"),
-        ("remote",),
+        ("symbolic-ref", "-q", "--short", "HEAD"),
+        ("remote", "-v"),
         ("ls-files", "--cached", "-z"),
         ("check-ignore", "--no-index", "-z", "--stdin"),
     )
@@ -67,15 +73,23 @@ def inspect_repository_git(root: Path) -> tuple[InventoryIssue, ...]:
             return (*reasons, InventoryIssue("git", "git_query_unavailable", 3))
         if len(result.stdout.encode("utf-8")) > MAX_GIT_BYTES:
             return (*reasons, InventoryIssue("git", "git_output_limit"))
-        if result.returncode != 0 and arguments[0] != "check-ignore":
+        detached = arguments[0] == "symbolic-ref" and result.returncode == 1
+        if result.returncode != 0 and arguments[0] != "check-ignore" and not detached:
             return (*reasons, InventoryIssue("git", "git_query_unavailable", 3))
         outputs.append(result.stdout)
     if outputs[0].rstrip("\n") != str(root):
         reasons.append(InventoryIssue("git", "not_repository_root"))
-    if outputs[1].rstrip("\n") != "main":
-        reasons.append(InventoryIssue("git", "initial_branch_not_main"))
-    if outputs[2]:
-        reasons.append(InventoryIssue("git", "initial_remote_present"))
+    branch = outputs[1].rstrip("\n")
+    if branch and branch != "main":
+        reasons.append(InventoryIssue("git", "branch_not_main"))
+    remotes = {tuple(line.split("\t", 1)) for line in outputs[2].splitlines()}
+    if any(
+        len(entry) != 2
+        or entry[0] != "origin"
+        or entry[1].rsplit(" ", 1)[0] not in ACCEPTED_REMOTE_URLS
+        for entry in remotes
+    ):
+        reasons.append(InventoryIssue("git", "remote_not_canonical"))
     for name in sorted(set(outputs[3].split("\0")) - {""}):
         if name not in PUBLIC_PATHS or any(
             name == item or name.startswith(item + "/") for item in EXCLUDED

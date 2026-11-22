@@ -18,7 +18,7 @@ import tempfile
 from pathlib import Path
 from typing import NoReturn, TextIO
 
-from check_repository_metadata import REPOSITORY_NAME, validate_repository_metadata
+from check_repository_metadata import LIFECYCLE, REPOSITORY_NAME, validate_repository_metadata
 from repository_git import inspect_repository_git
 from repository_policy import InventoryIssue, InventoryReport, admit_root, read_inventory_input
 from repository_tree import inspect_repository_tree
@@ -117,7 +117,7 @@ def inventory_operation(
     raw = inputs["repository-domain.json"]
     expected: dict[str, object] = {
         "repository_name": REPOSITORY_NAME,
-        "lifecycle": "local_scaffold",
+        "lifecycle": LIFECYCLE,
         "evidence_maturity": "architecture_only",
         "capabilities": [],
         "claims": [],
