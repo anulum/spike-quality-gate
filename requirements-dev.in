@@ -16,7 +16,7 @@ jsonschema==4.26.0
 markdown==3.11
 mkdocs==1.6.1
 mkdocs-material==9.7.7
-mkdocstrings-python==2.0.9
+mkdocstrings-python==2.0.11
 mypy==1.20.2
 packaging==26.3
 pip-audit==2.10.1
