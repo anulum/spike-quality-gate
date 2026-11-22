@@ -35,7 +35,8 @@
     },
     {
       "repo": "github/codeql-action",
-      "selected_tag": "v4",
+      "selected_tag": "v4.39.0",
+      "annotated_tag": "48870fdd6b42ee6474ec4207209ff87609271a5e",
       "commit": "6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee",
       "action_path": "init/action.yml",
       "action_sha256": "93bb5117fc0c22922e865515a8a863aa2182cf872b124735904d4051afb83854",
