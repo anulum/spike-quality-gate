@@ -42,7 +42,7 @@ jobs:
     - name: Prepare local cache directories
       run: mkdir -p .tool-cache/tmp .tool-cache/uv-cache .tool-cache/pre-commit .tool-cache/reports
     - name: Select the verified uv release
-      uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884
+      uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d
       with:
         version: 0.13.4
         checksum: 2b428396f12572d4429cf210ca234dd599a33b3af0958a4d5ed569d63e3f344f
