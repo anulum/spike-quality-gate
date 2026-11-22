@@ -9,6 +9,7 @@
 site_name: Spike Quality Gate
 site_description: Architecture and repository foundation for source-bound event-data quality evaluation
 strict: true
+copyright: Concepts © 1996–2026 and code © 2020–2026 Miroslav Šotek · AGPL-3.0-or-later, commercial licence available
 site_dir: .tool-cache/site
 exclude_docs: |
   /internal/
